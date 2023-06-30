@@ -110,8 +110,8 @@ public class FirebaseFileService {
             body.add("product_id", product.getId());
 
             HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-//            String url = "http://103.197.185.34/ai/api/product/addNewImg";
-            String url = "http://127.0.0.1:5000/ai/api/product/addNewImg";
+            String url = "http://103.197.185.34/ai/api/product/addNewImg";
+//            String url = "http://127.0.0.1:5000/ai/api/product/addNewImg";
             ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
             HttpStatus statusCode = response.getStatusCode();
             int statusCodeValue = statusCode.value();
