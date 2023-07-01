@@ -10,18 +10,23 @@ import org.springframework.context.annotation.Configuration;
 import javax.annotation.PostConstruct;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @Configuration
 public class FirestoreConfig {
 
 //    @Value("${firebase.serviceFirebaseKey}")
-    private String serviceAccountPath = "src/main/resources/serviceFirebaseKey.json";
+//    private String serviceAccountPath = "src/main/resources/serviceFirebaseKey.json";
+    private InputStream serviceAccount = getClass().getResourceAsStream("/serviceFirebaseKey.json");
 
     private Firestore firestore;
 
     @PostConstruct
     public void init() throws IOException {
-        FileInputStream serviceAccount = new FileInputStream(serviceAccountPath);
+//        InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("/serviceFirebaseKey.json");
+//        InputStream serviceAccount = getClass().getResourceAsStream("/serviceFirebaseKey.json");
+
+//        FileInputStream inputStream = new FileInputStream(serviceAccountPath);
 
         FirestoreOptions options = FirestoreOptions.newBuilder()
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))

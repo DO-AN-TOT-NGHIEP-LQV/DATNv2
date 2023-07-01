@@ -26,6 +26,7 @@ import javax.transaction.Transactional;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,15 +52,18 @@ public class FirebaseFileService {
 
     @Autowired
     private ShopService shopService;
+    private InputStream serviceAccount = getClass().getResourceAsStream("/serviceFirebaseKey.json");
 
     @EventListener
     public void init(ApplicationReadyEvent event) {
         try {
-            FileInputStream serviceAccounts =
-                new FileInputStream("src/main/resources/serviceFirebaseKey.json");
+//            FileInputStream serviceAccounts =
+//                new FileInputStream("src/main/resources/serviceFirebaseKey.json");
+
+
 
             storage = StorageOptions.newBuilder().
-                    setCredentials(GoogleCredentials.fromStream(serviceAccounts))
+                    setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setProjectId("datnv1-34493")
                     .build().getService();
         } catch (Exception ex) {
