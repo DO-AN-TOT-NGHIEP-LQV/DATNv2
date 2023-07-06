@@ -8,7 +8,7 @@
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
-              "resizeMode": "contain"
+      "resizeMode": "contain"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,10 +20,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffff"
-      }
+      },
+      "package": "com.cz2797delta.fe_eric"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4c43346a-afd4-4070-8c20-767b752d480e"
+      }
     }
   }
 }

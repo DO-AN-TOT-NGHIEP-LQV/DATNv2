@@ -12,6 +12,7 @@ import {
   RefreshControl,
 } from "react-native";
 import { ActivityIndicator, Button } from "react-native-paper";
+import * as Animatable from "react-native-animatable";
 
 import Color from "../constans/Color";
 import actions from "../redux/actions";

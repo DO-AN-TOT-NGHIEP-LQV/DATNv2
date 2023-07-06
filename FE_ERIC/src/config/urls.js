@@ -10,6 +10,9 @@ export const CHANGE_PASSWORD = getApiUrl("/user/changePassword");
 export const GET_ALL_USERS = getApiUrl("/users");
 export const GET_DETAIL_USERS = getApiUrl("/user/getDetail");
 export const REFRESH_TOKEN = getApiUrl("/token/refresh");
+export const REGISTER_SHOP = getApiUrl("/user/registerShop");
+export const STATUS_REGISTER_SHOP = getApiUrl("/user/getStatusRegisterShop");
+export const CANCEL_REGISTER_SHOP = getApiUrl("/user/cancelRegisterShop");
 
 //Search
 export const SEARCH_ALL_B_IMG = getApiUrl("/search/searchByImage");
@@ -72,5 +75,6 @@ export const UPDATE_SHOP_IMAGE = getApiUrl("/sale/shop/updateImage");
 
 export const GET_VENDOR_PRODUCT = getApiUrl("/sale/shop/getVendorProduct");
 
-// axios.defaults.baseURL = "http://192.168.1.8:8080/api";
-axios.defaults.baseURL = "http://192.168.1.8:8080/api";
+// axios.defaults.baseURL = "http://172.21.0.79:8080/api";
+axios.defaults.baseURL = "http://192.168.1.5:8080/api";
+// axios.defaults.baseURL = "http://103.197.185.34/api";

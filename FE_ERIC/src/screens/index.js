@@ -7,19 +7,20 @@ export { default as SignupScreen } from "./SignupScreen";
 export { default as DetailProductScreen } from "./DetailProductScreen";
 export { default as SearchTextScreen } from "./SearchTextScreen";
 export { default as SearchImageScreen } from "./SearchImageScreen";
+export { default as OnboardingScreen } from "./OnboardingScreen";
 
 //Setting
 export { default as ProfileScreen } from "./ProfileScreen";
 export { default as RegisterShopRole } from "./Setting/RegisterShopRole";
 export { default as AdminEditUsers } from "./Setting/AdminEditUsers";
 
-// Saler Manager
 // Admin
 export { default as AdminMainScreen } from "./Admin/AdminMainScreen";
 export { default as CreateProductScreen } from "./Admin/CreateProductScreen";
 export { default as UpdateProductScreen } from "./Admin/UpdateProductScreen";
 export { default as ManagerProductScreen } from "./Admin/ManagerProductScreen";
 export { default as ProfileShopScreen } from "./Admin/ProfileShopScreen";
+export { default as AdminManagerShopScreen } from "./Admin/AdminManagerShopScreen";
 
 // Saler Manager
 export { default as ShopMainScreen } from "./Shop/ShopMainScreen";

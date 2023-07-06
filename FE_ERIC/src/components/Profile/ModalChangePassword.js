@@ -166,7 +166,7 @@ const ChangePasswordContent = ({ onClose, showError, showSuccess }) => {
           true
         );
 
-        showSuccess("Password changed successfully. Please log in again.");
+        showSuccess("Thay đổi mật khẩu thành công");
         onClose();
         actions.logout();
         updateState({ isLoading: false });

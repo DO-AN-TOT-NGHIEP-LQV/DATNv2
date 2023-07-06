@@ -17,6 +17,7 @@ export default {
   darkGray: "#BBBDC1",
   darkGray2: "#f8f8F8",
 
+  success: "#8BC34A",
   red: "#F52A2A",
   light: "#F1F1F1",
   green: "#00B761",

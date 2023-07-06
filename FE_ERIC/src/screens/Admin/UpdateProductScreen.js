@@ -322,7 +322,7 @@ const UpdateProductScreen = ({ route }) => {
             paddingHorizontal: SIZES.padding,
           }}
           disableRightSwipe={true}
-          rightOpenValue={-120}
+          rightOpenValue={0}
           renderItem={({ item, index }) => {
             return (
               <Pressable
@@ -444,59 +444,59 @@ const UpdateProductScreen = ({ route }) => {
               </Pressable>
             );
           }}
-          renderHiddenItem={({ item, index }) => (
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "flex-end",
-                backgroundColor: Color.mainColor,
-                height: 100,
-                ...styles.cartProductContainer,
-                paddingHorizontal: 0,
-              }}
-            >
-              <Pressable
-                style={{
-                  height: 100,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingHorizontal: SIZES.radius,
-                  marginHorizontal: 10,
-                  marginLeft: 20,
-                }}
-                onPress={() => {
-                  onDeleteAlert();
-                }}
-              >
-                <Icons
-                  name={"delete"}
-                  icon={icons.AntDesign}
-                  size={20}
-                  color={Color.white}
-                />
-              </Pressable>
+          // renderHiddenItem={({ item, index }) => (
+          //   <View
+          //     style={{
+          //       flexDirection: "row",
+          //       justifyContent: "flex-end",
+          //       backgroundColor: Color.mainColor,
+          //       height: 100,
+          //       ...styles.cartProductContainer,
+          //       paddingHorizontal: 0,
+          //     }}
+          //   >
+          //     <Pressable
+          //       style={{
+          //         height: 100,
+          //         flexDirection: "row",
+          //         alignItems: "center",
+          //         paddingHorizontal: SIZES.radius,
+          //         marginHorizontal: 10,
+          //         marginLeft: 20,
+          //       }}
+          //       onPress={() => {
+          //         onDeleteAlert();
+          //       }}
+          //     >
+          //       <Icons
+          //         name={"delete"}
+          //         icon={icons.AntDesign}
+          //         size={20}
+          //         color={Color.white}
+          //       />
+          //     </Pressable>
 
-              <Pressable
-                style={{
-                  height: 100,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingHorizontal: SIZES.radius,
-                  marginRight: 10,
-                }}
-                onPress={() => {
-                  changeFeatured();
-                }}
-              >
-                <Icons
-                  name={"local-fire-department"}
-                  icon={icons.MaterialIcons}
-                  size={20}
-                  color={product?.featured ? Color.yellow : Color.white}
-                />
-              </Pressable>
-            </View>
-          )}
+          //     <Pressable
+          //       style={{
+          //         height: 100,
+          //         flexDirection: "row",
+          //         alignItems: "center",
+          //         paddingHorizontal: SIZES.radius,
+          //         marginRight: 10,
+          //       }}
+          //       onPress={() => {
+          //         changeFeatured();
+          //       }}
+          //     >
+          //       <Icons
+          //         name={"local-fire-department"}
+          //         icon={icons.MaterialIcons}
+          //         size={20}
+          //         color={product?.featured ? Color.yellow : Color.white}
+          //       />
+          //     </Pressable>
+          //   </View>
+          // )}
         />
       </View>
     );

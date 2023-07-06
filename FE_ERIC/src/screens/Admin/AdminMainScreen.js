@@ -11,7 +11,7 @@ import {
   Linking,
 } from "react-native";
 import React, { Fragment, useEffect, useRef, useState } from "react";
-import { bg1, bg2 } from "../../public/assets/image";
+import { LogoApp, bg1, bg2 } from "../../public/assets/image";
 import Colors from "../../constans/Color";
 import { SIZES, FONTS, statusbarHeight } from "../../constans/Theme";
 import { useSelector } from "react-redux";
@@ -92,13 +92,16 @@ const AdminMainScreen = () => {
                 width: 80,
                 height: 80,
                 marginLeft: 15,
+                backgroundColor: Colors.white,
+                borderRadius: 40,
               }}
             >
               <Image
                 source={
-                  shopDetail && shopDetail?.sLogo
-                    ? { uri: shopDetail?.sLogo }
-                    : LoginImg
+                  // shopDetail && shopDetail?.sLogo
+                  //   ? { uri: shopDetail?.sLogo }
+                  //   : LoginImg
+                  LogoApp
                 }
                 style={{
                   width: "100%",
@@ -167,10 +170,8 @@ const AdminMainScreen = () => {
       });
     };
 
-    const navigateProfileShopScreen = () => {
-      navigation.navigate("ProfileShopScreen", {
-        // shopId: shopDetail.id,
-      });
+    const AdminManagerShopScreen = () => {
+      navigation.navigate("AdminManagerShopScreen");
     };
 
     const navigateManagerProduct = () => {
@@ -204,7 +205,7 @@ const AdminMainScreen = () => {
             <ItemPromo
               item={promoTags[1]}
               onPress={() => {
-                navigateProfileShopScreen();
+                AdminManagerShopScreen();
               }}
             />
           </View>

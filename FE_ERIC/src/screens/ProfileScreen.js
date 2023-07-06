@@ -40,6 +40,9 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
   const [isVisibleModalPassword, setVisibleModelPassword] = useState(false);
 
+  useEffect(() => {
+    console.log(detailUser);
+  }, []);
   const onLogoutAlert = () => {
     Alert.alert(
       "Đăng xuất",
@@ -57,17 +60,7 @@ const ProfileScreen = () => {
     setLoading(true);
 
     await actions.logout();
-
-    // navigation.dispatch(
-    //   CommonActions.reset({
-    //     index: 0,
-    //     routes: [{ name: "Đăng n" }],
-    //   })
-    // );
-
     setLoading(false);
-
-    // setIsProcessing(false);
   };
 
   function renderHeader() {
@@ -203,32 +196,6 @@ const ProfileScreen = () => {
                 </Text>
               </TouchableOpacity>
             ) : null}
-
-            {/* <Text
-              style={{
-                color: Color.white,
-                ...FONTS.body4,
-                fontStyle: "italic",
-                fontWeight: 100,
-              }}
-            >
-              {detailUser?.roles && hasSalerRole(detailUser?.roles)
-                ? `Shop: ${detailUser.shop.sName}`
-                : "AAAA"}
-            </Text> */}
-
-            {/* {isLogin && detailUser?.roles && hasSalerRole(detailUser?.roles) ? (
-              <Text
-                style={{
-                  color: Color.white,
-                  ...FONTS.body4,
-                  fontStyle: "italic",
-                  fontWeight: 100,
-                }}
-              >
-                {"Shop: "}
-              </Text>
-            ) : null} */}
           </View>
         </ImageBackground>
       </View>
@@ -279,7 +246,7 @@ const ProfileScreen = () => {
         />
         <LineDivider />
 
-        <ProfileEdit
+        {/* <ProfileEdit
           iconName={"shop"}
           iconsFamily={icons.Entypo}
           label={"Quản lí thông tin shop"}
@@ -287,7 +254,7 @@ const ProfileScreen = () => {
             navigation.navigate("SettingTab", { screen: "AdminEditUsers" });
           }}
         />
-        <LineDivider />
+        <LineDivider /> */}
 
         <ProfileEdit
           iconName={"account-lock-open-outline"}
@@ -299,13 +266,13 @@ const ProfileScreen = () => {
         />
         <LineDivider />
 
-        <ProfileEdit
+        {/* <ProfileEdit
           iconName={"appstore-o"}
           iconsFamily={icons.AntDesign}
           label={"ADMIN"}
           onPress={() => {}}
         />
-        <LineDivider />
+        <LineDivider /> */}
       </View>
     );
   }
@@ -318,7 +285,10 @@ const ProfileScreen = () => {
     >
       {renderHeader()}
 
-      <ScrollView contentContainerStyle={styles.contentContainerStyle}>
+      <View
+        contentContainerStyle={styles.contentContainerStyle}
+        style={styles.contentContainerStyle}
+      >
         {/* Prodile Card */}
         {renderProfileCard()}
 
@@ -335,7 +305,7 @@ const ProfileScreen = () => {
         ) : (
           <AuthRequired navigation={navigation} />
         )}
-      </ScrollView>
+      </View>
 
       {isVisibleModalPassword && (
         <ModalChangePassword

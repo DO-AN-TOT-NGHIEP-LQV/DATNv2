@@ -20,6 +20,7 @@ import { showError } from "../../ultils/messageFunction";
 import { apiGet } from "../../ultils/utilsApi";
 import { GET_ALL_PRODUCT } from "../../config/urls";
 import { ShoesFLas } from "../../public/assets";
+import * as Animatable from "react-native-animatable";
 
 const ManagerProductScreen = ({ route }) => {
   // const shopId = route.params.shopId;
@@ -177,160 +178,167 @@ const ManagerProductScreen = ({ route }) => {
           paddingHorizontal: SIZES.padding,
         }}
         disableRightSwipe={true}
-        rightOpenValue={-120}
+        rightOpenValue={0}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
         renderItem={({ item, index }) => {
           return (
-            <Pressable
-              style={{
-                height: 100,
-                backgroundColor: Color.white,
-                // backgroundColor: rgb(242, 241, 253),
-                ...styles.cartProductContainer,
-                zIndex: 1,
-                marginRight: 3,
-                ...shadow.shadow,
-                paddingLeft: 4,
-                marginBottom: 2,
-              }}
-              onPress={() =>
-                navigation.navigate("UpdateProductScreen", {
-                  productId: item.id,
-
-                  // shopId: shopId,
-                })
-              }
+            <Animatable.View
+              // animation={"fadeInUp"}
+              animation={"zoomInRight"}
+              duration={1000}
+              delay={index * 100}
             >
-              <View
+              <Pressable
                 style={{
                   height: 100,
-                  width: 90,
-                  justifyContent: "center",
+                  backgroundColor: Color.white,
+                  // backgroundColor: rgb(242, 241, 253),
+                  ...styles.cartProductContainer,
+                  zIndex: 1,
+                  marginRight: 3,
+                  ...shadow.shadow,
+                  paddingLeft: 4,
+                  marginBottom: 2,
                 }}
-              >
-                <Image
-                  source={
-                    item?.images[0]?.url
-                      ? { uri: item?.images[0]?.url }
-                      : ShoesFLas
-                  }
-                  resizeMode="contain"
-                  style={styles.images}
-                />
-              </View>
+                onPress={() =>
+                  navigation.navigate("UpdateProductScreen", {
+                    productId: item.id,
 
-              <View
-                style={{
-                  flex: 1,
-                  height: 100,
-                  marginHorizontal: 5,
-                  paddingVertical: 10,
-                }}
+                    // shopId: shopId,
+                  })
+                }
               >
-                <Text
+                <View
                   style={{
-                    ...FONTS.h4,
-                    height: 20,
-                    lineHeight: 20,
-                    alignItems: "flex-start",
+                    height: 100,
+                    width: 90,
+                    justifyContent: "center",
                   }}
-                  numberOfLines={1}
                 >
-                  Id: {item.id}
-                </Text>
+                  <Image
+                    source={
+                      item?.images[0]?.url
+                        ? { uri: item?.images[0]?.url }
+                        : ShoesFLas
+                    }
+                    resizeMode="contain"
+                    style={styles.images}
+                  />
+                </View>
 
-                <Text
+                <View
                   style={{
-                    fontSize: 16,
-                    lineHeight: 20,
-                    height: 40,
+                    flex: 1,
+                    height: 100,
+                    marginHorizontal: 5,
+                    paddingVertical: 10,
                   }}
-                  numberOfLines={2}
                 >
-                  <Text style={{ ...FONTS.h4, height: 40, lineHeight: 20 }}>
-                    {`Name: `}
+                  <Text
+                    style={{
+                      ...FONTS.h4,
+                      height: 20,
+                      lineHeight: 20,
+                      alignItems: "flex-start",
+                    }}
+                    numberOfLines={1}
+                  >
+                    Id: {item.id}
                   </Text>
-                  {`${item.name}`}
-                </Text>
 
-                <Text
-                  style={{
-                    ...FONTS.h3,
-                    color: Color.mainColor,
-                    justifyContent: "flex-end",
-                    alignItems: "flex-end",
-                  }}
-                  numberOfLines={1}
-                >
-                  {`đ ${item.price}`}
-                </Text>
-              </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 20,
+                      height: 40,
+                    }}
+                    numberOfLines={2}
+                  >
+                    <Text style={{ ...FONTS.h4, height: 40, lineHeight: 20 }}>
+                      {`Name: `}
+                    </Text>
+                    {`${item.name}`}
+                  </Text>
 
-              {/* <View
+                  <Text
+                    style={{
+                      ...FONTS.h3,
+                      color: Color.mainColor,
+                      justifyContent: "flex-end",
+                      alignItems: "flex-end",
+                    }}
+                    numberOfLines={1}
+                  >
+                    {`đ ${item.price}`}
+                  </Text>
+                </View>
+
+                {/* <View
                 style={{
                   width: 50,
                   borderWidth: 2,
                   height: 36,
                 }}
               ></View> */}
-            </Pressable>
+              </Pressable>
+            </Animatable.View>
           );
         }}
-        renderHiddenItem={({ item, index }) => (
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              backgroundColor: Color.mainColor,
-              height: 100,
-              ...styles.cartProductContainer,
-              paddingHorizontal: 0,
-            }}
-          >
-            <Pressable
-              style={{
-                height: 100,
-                flexDirection: "row",
-                alignItems: "center",
-                paddingHorizontal: SIZES.radius,
-                marginHorizontal: 10,
-                marginLeft: 20,
-              }}
-              // onPress={() => {
-              //   deleteProduct();
-              // }}
-            >
-              <Icons
-                name={"delete"}
-                icon={icons.AntDesign}
-                size={20}
-                color={Color.white}
-              />
-            </Pressable>
+        // renderHiddenItem={({ item, index }) => (
+        //   <View
+        //     style={{
+        //       flexDirection: "row",
+        //       justifyContent: "flex-end",
+        //       backgroundColor: Color.mainColor,
+        //       height: 100,
+        //       ...styles.cartProductContainer,
+        //       paddingHorizontal: 0,
+        //     }}
+        //   >
+        //     <Pressable
+        //       style={{
+        //         height: 100,
+        //         flexDirection: "row",
+        //         alignItems: "center",
+        //         paddingHorizontal: SIZES.radius,
+        //         marginHorizontal: 10,
+        //         marginLeft: 20,
+        //       }}
+        //       // onPress={() => {
+        //       //   deleteProduct();
+        //       // }}
+        //     >
+        //       <Icons
+        //         name={"delete"}
+        //         icon={icons.AntDesign}
+        //         size={20}
+        //         color={Color.white}
+        //       />
+        //     </Pressable>
 
-            <Pressable
-              style={{
-                height: 100,
-                flexDirection: "row",
-                alignItems: "center",
-                paddingHorizontal: SIZES.radius,
-                marginRight: 10,
-              }}
-              onPress={() => {
-                // changeFeatured();
-              }}
-            >
-              <Icons
-                name={"local-fire-department"}
-                icon={icons.MaterialIcons}
-                size={20}
-                color={item.id?.featured ? Color.yellow : Color.white}
-              />
-            </Pressable>
-          </View>
-        )}
+        //     <Pressable
+        //       style={{
+        //         height: 100,
+        //         flexDirection: "row",
+        //         alignItems: "center",
+        //         paddingHorizontal: SIZES.radius,
+        //         marginRight: 10,
+        //       }}
+        //       onPress={() => {
+        //         // changeFeatured();
+        //       }}
+        //     >
+        //       <Icons
+        //         name={"local-fire-department"}
+        //         icon={icons.MaterialIcons}
+        //         size={20}
+        //         color={item.id?.featured ? Color.yellow : Color.white}
+        //       />
+        //     </Pressable>
+        //   </View>
+        // )}
       />
     );
   }

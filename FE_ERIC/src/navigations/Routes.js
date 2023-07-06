@@ -1,7 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import MainStack from "./MainStack";
-import AuthStack from "./AuthStack";
 import { useSelector } from "react-redux";
 import FlashMessage from "react-native-flash-message";
 import {
@@ -24,18 +22,19 @@ import {
   ShopProfileScreen,
   RegisterShopRole,
   AdminEditUsers,
+  OnboardingScreen,
+  AdminManagerShopScreen,
 } from "../screens";
 import { statusbarHeight } from "../constans/Theme";
 import CustomTabBarIcon from "../components/CustomTabBarIcon";
 import { Color } from "../constans";
 import { Keyboard } from "react-native";
-// import ShopUpdateProductScreen from "../screens/Shop/ShopUpdateProductScreen";
 import { hasAdminRole, hasSalerRole } from "../ultils/helperFunction";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import { createStackNavigator } from "@react-navigation/stack";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -45,6 +44,20 @@ const Routes = () => {
 
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const detailUser = useSelector((state) => state.auth.detailUser);
+
+  const [isFirstLaunch, setIsFirstLaunch] = useState(false);
+
+  // useEffect(() => {
+  //   AsyncStorage.getItem("alreadyLaunched").then((value) => {
+  //     if (value === null) {
+  //       AsyncStorage.setItem("alreadyLaunched", "true");
+  //       setIsFirstLaunch(true);
+  //     } else {
+  //       setIsFirstLaunch(false);
+  //     }
+  //   });
+  //   console.log(isFirstLaunch);
+  // }, []);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -84,6 +97,19 @@ const Routes = () => {
           ],
         })}
       >
+        {/* {isFirstLaunch && (
+          <BottomTab.Screen
+            options={{
+              headerShown: false,
+              // tabBarStyle: { display: "none" },
+              tabBarButton: () => null,
+            }}
+            name="OnboardingScreen"
+            component={OnboardingScreen}
+            // options={{}}
+          />
+        )} */}
+
         <BottomTab.Screen
           name="HomeTab"
           component={HomeStack}
@@ -124,22 +150,6 @@ const Routes = () => {
             ),
           }}
         />
-
-        {/* <BottomTab.Screen
-          name="AdminTab"
-          component={AdminManagerStackNavigator}
-          options={{
-            tabBarIcon: ({ color, size, focused }) => (
-              <CustomTabBarIcon
-                nameIcon={"appstore-o"}
-                textLabel={"ADMIN"}
-                color={color}
-                size={size}
-                focused={focused}
-              />
-            ),
-          }}
-        /> */}
 
         {detailUser?.roles && hasAdminRole(detailUser?.roles) && (
           <BottomTab.Screen
@@ -251,6 +261,15 @@ const Routes = () => {
         <BottomTab.Screen
           name="ShopCreateProduct"
           component={ShopCreateProduct}
+          options={{
+            tabBarStyle: { display: "none" },
+            tabBarButton: () => null,
+          }}
+        />
+
+        <BottomTab.Screen
+          name="AdminManagerShopScreen"
+          component={AdminManagerShopScreen}
           options={{
             tabBarStyle: { display: "none" },
             tabBarButton: () => null,
@@ -450,6 +469,17 @@ const AdminManagerStackNavigator = () => {
       <Stack.Screen
         name="UpdateProductScreen"
         component={UpdateProductScreen}
+        tabBarOptions={{
+          style: {
+            display: "none",
+          },
+          keyboardHidesTabBar: true,
+        }}
+      />
+
+      <Stack.Screen
+        name="AdminManagerShopScreen"
+        component={AdminManagerShopScreen}
         tabBarOptions={{
           style: {
             display: "none",

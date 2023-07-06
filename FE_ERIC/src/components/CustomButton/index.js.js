@@ -11,6 +11,7 @@ const CustomButton = ({
   isLoading,
   textStyle,
   isDisable = false,
+  ...props
 }) => {
   return (
     <Button
@@ -20,6 +21,7 @@ const CustomButton = ({
       loading={isLoading}
       loadingProps={{ color: "black" }}
       disabled={isDisable}
+      props
     >
       {!!isLoading ? (
         ""

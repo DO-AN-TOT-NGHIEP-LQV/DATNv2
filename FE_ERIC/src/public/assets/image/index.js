@@ -13,3 +13,6 @@ export { default as bg8 } from "./bg8.jpg";
 export { default as promoBg1 } from "./promoBg1.jpg";
 export { default as promoBg2 } from "./promoBg2.png";
 export { default as promoBg3 } from "./promoBg3.jpg";
+
+export { default as shopImageMan } from "./Shop_image_man.jpg";
+export { default as LogoApp } from "./LogoApp.png";

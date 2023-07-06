@@ -32,7 +32,6 @@ import {
   SectionHome,
   TypeCard,
 } from "../components/Home";
-import LottieLoading from "../components/LottieLoading";
 import { PriceVND, logoHome } from "../public/assets/icons";
 import { Dimensions } from "react-native";
 
@@ -45,33 +44,6 @@ const HomeScreen = () => {
 
   const currentDate = Moment();
   const formattedDate = currentDate.format("dddd, DD/MM/YYYY");
-
-  // useLayoutEffect(() => {
-  //   navigation.setOptions({
-  //     headerShown: false,
-  //   });
-  // }, []);
-
-  // const navigatorToScreen = () => {
-  //   navigation.navigate("DiscoverTab", { screen: "DetailPost" });
-  // };
-
-  // const getAllUsses = async () => {
-  //   try {
-  //     const res = await actions.getAllUsers();
-  //   } catch (error) {
-  //     showError(error.error_message);
-  //   }
-  // };
-
-  // const getDetailUser = async () => {
-  //   await apiGet(GET_DETAIL_USERS, {}, {}, true)
-  //     .then((res) => {
-  //       console.log("GET_DETAIL_USERS");
-  //       saveDetailUser(res.data);
-  //     })
-  //     .catch((error) => {});
-  // };
 
   function renderHeader() {
     return (
@@ -124,23 +96,6 @@ const HomeScreen = () => {
               alignItems: "center",
             }}
           >
-            {/* <View
-              style={{
-                width: 90,
-                height: 90,
-                borderRadius: 9999,
-                alignItems: "center",
-                justifyContent: "center",
-                // borderWidth: 1,
-                // backgroundColor: Color.blackOpacity,
-              }}
-            > */}
-            {/* <Text
-                className="text-[#00BCC9]  font-semibold"
-                style={{ fontSize: 20, lineHeight: 32, color: Color.blueTheme }}
-              >
-                ER
-              </Text> */}
             <Image
               source={logoHome}
               style={{
@@ -176,45 +131,54 @@ const HomeScreen = () => {
       <SectionHome title={"Loại"} containerStyle={{}}>
         <View style={styles.selectedTagsContainer}>
           {typeList.map((tag, index) => (
-            <View key={index} style={{ marginHorizontal: 5, marginTop: 5 }}>
-              <TypeCard
-                type={tag}
-                imageStyle={{
-                  opacity: 0.6,
-                }}
-                containerStyle={{
-                  height: 30,
-                  width: "100%",
-                  paddingVertical: 0,
-                  paddingHorizontal: 0,
-                  marginRight: 15,
-                  borderRadius: 8,
-                  justifyContent: "center",
-                  alignContent: "center",
-                  alignItems: "center",
-                  // margin: 5,
-                  // borderWidth: 1,
+            <Animatable.View
+              animation={"tada"}
+              duration={500}
+              delay={500}
+              key={index}
+              // pointerEvents={!shopDetail ? "auto" : "none"}
+            >
+              <View key={index} style={{ marginHorizontal: 5, marginTop: 5 }}>
+                <TypeCard
+                  type={tag}
+                  imageStyle={{
+                    opacity: 0.6,
+                  }}
+                  containerStyle={{
+                    height: 30,
+                    width: "100%",
+                    paddingVertical: 0,
+                    paddingHorizontal: 0,
+                    marginRight: 15,
+                    borderRadius: 8,
+                    justifyContent: "center",
+                    alignContent: "center",
+                    alignItems: "center",
+                    // margin: 5,
+                    // borderWidth: 1,
 
-                  // marginLeft: 20,
-                }}
-                textStyle={{
-                  color: Color.black,
-                  fontSize: 14,
-                  ...FONTS.h4,
-                }}
-                onPress={() => {
-                  actions.brandSelectedList([]);
-                  actions.typeSelectedList([tag.value]);
-                  actions.nowRangeMinMaxPrice([0, 80]);
-                  actions.updateApplyFilter(true);
-                  actions.changeFilter();
-                  navigation.navigate("SearchTab", { screen: "SearchText" });
-                }}
-              />
-            </View>
+                    // marginLeft: 20,
+                  }}
+                  textStyle={{
+                    color: Color.black,
+                    fontSize: 14,
+                    ...FONTS.h4,
+                  }}
+                  onPress={() => {
+                    actions.brandSelectedList([]);
+                    actions.typeSelectedList([tag.value]);
+                    actions.nowRangeMinMaxPrice([0, 80]);
+                    actions.updateApplyFilter(true);
+                    actions.changeFilter();
+                    navigation.navigate("SearchTab", { screen: "SearchText" });
+                  }}
+                />
+              </View>
+            </Animatable.View>
           ))}
         </View>
       </SectionHome>
+      // </Animatable.View>
     );
   }
 

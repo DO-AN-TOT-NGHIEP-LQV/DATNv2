@@ -358,115 +358,115 @@ const ShopProfileScreen = () => {
 
   function renderDetailField() {
     return (
-      <ScrollView>
-        <View style={styles.profileSessionContainer}>
-          <ProductValue
-            label={"Chủ sở hữu"}
-            value={detailUser?.username}
-            icon={
-              <View style={styles.iconStyle}>
-                <Icons
-                  size={20}
-                  name={"user"}
-                  icon={icons.AntDesign}
-                  color={Colors.mainColor}
-                />
-              </View>
-            }
-          />
-          <LineDivider />
-          <ProductValue
-            label={"Email"}
-            value={detailUser?.email}
-            icon={
-              <View style={styles.iconStyle}>
-                <Icons
-                  size={16}
-                  name={"mail"}
-                  icon={icons.AntDesign}
-                  color={Colors.mainColor}
-                />
-              </View>
-            }
-          />
-          <LineDivider />
-          <ProductValue
-            label={"Tên cửa hàng"}
-            value={sName}
-            onPress={() => {
-              updateIsShowModal({ sNameModal: true });
-            }}
-            icon={
-              <View style={styles.iconStyle}>
-                <Icons
-                  size={16}
-                  name={"storefront-outline"}
-                  icon={icons.MaterialCommunityIcons}
-                  color={Colors.mainColor}
-                />
-              </View>
-            }
-          />
-          <LineDivider />
+      // <ScrollView>
+      <View style={styles.profileSessionContainer}>
+        <ProductValue
+          label={"Chủ sở hữu"}
+          value={detailUser?.username}
+          icon={
+            <View style={styles.iconStyle}>
+              <Icons
+                size={20}
+                name={"user"}
+                icon={icons.AntDesign}
+                color={Colors.mainColor}
+              />
+            </View>
+          }
+        />
+        <LineDivider />
+        <ProductValue
+          label={"Email"}
+          value={detailUser?.email}
+          icon={
+            <View style={styles.iconStyle}>
+              <Icons
+                size={16}
+                name={"mail"}
+                icon={icons.AntDesign}
+                color={Colors.mainColor}
+              />
+            </View>
+          }
+        />
+        <LineDivider />
+        <ProductValue
+          label={"Tên cửa hàng"}
+          value={sName}
+          onPress={() => {
+            updateIsShowModal({ sNameModal: true });
+          }}
+          icon={
+            <View style={styles.iconStyle}>
+              <Icons
+                size={16}
+                name={"storefront-outline"}
+                icon={icons.MaterialCommunityIcons}
+                color={Colors.mainColor}
+              />
+            </View>
+          }
+        />
+        <LineDivider />
 
-          <ProductValue
-            label={"Liên kết"}
-            value={sLink}
-            icon={
-              <View style={styles.iconStyle}>
-                <Icons
-                  size={20}
-                  name={"link-outline"}
-                  icon={icons.Ionicons}
-                  color={Colors.mainColor}
-                />
-              </View>
-            }
-            onPress={() => {
-              updateIsShowModal({ sLinkModal: true });
-            }}
-          />
-          <LineDivider />
+        <ProductValue
+          label={"Liên kết"}
+          value={sLink}
+          icon={
+            <View style={styles.iconStyle}>
+              <Icons
+                size={20}
+                name={"link-outline"}
+                icon={icons.Ionicons}
+                color={Colors.mainColor}
+              />
+            </View>
+          }
+          onPress={() => {
+            updateIsShowModal({ sLinkModal: true });
+          }}
+        />
+        <LineDivider />
 
-          <ProductValue
-            label={"Số điện thoại"}
-            value={sNumber}
-            onPress={() => {
-              updateIsShowModal({ sNumberModal: true });
-            }}
-            icon={
-              <View style={styles.iconStyle}>
-                <Icons
-                  size={18}
-                  name={"phone-call"}
-                  icon={icons.Feather}
-                  color={Colors.mainColor}
-                />
-              </View>
-            }
-          />
-          <LineDivider />
+        <ProductValue
+          label={"Số điện thoại"}
+          value={sNumber}
+          onPress={() => {
+            updateIsShowModal({ sNumberModal: true });
+          }}
+          icon={
+            <View style={styles.iconStyle}>
+              <Icons
+                size={18}
+                name={"phone-call"}
+                icon={icons.Feather}
+                color={Colors.mainColor}
+              />
+            </View>
+          }
+        />
+        <LineDivider />
 
-          <ProductValue
-            label={"Địa chỉ"}
-            value={sAddress1}
-            onPress={() => {
-              updateIsShowModal({ sAddress1Modal: true });
-            }}
-            icon={
-              <View style={styles.iconStyle}>
-                <Icons
-                  size={18}
-                  name={"ios-location-outline"}
-                  icon={icons.Ionicons}
-                  color={Colors.mainColor}
-                />
-              </View>
-            }
-          />
-          {/* <LineDivider /> */}
-        </View>
-      </ScrollView>
+        <ProductValue
+          label={"Địa chỉ"}
+          value={sAddress1}
+          onPress={() => {
+            updateIsShowModal({ sAddress1Modal: true });
+          }}
+          icon={
+            <View style={styles.iconStyle}>
+              <Icons
+                size={18}
+                name={"ios-location-outline"}
+                icon={icons.Ionicons}
+                color={Colors.mainColor}
+              />
+            </View>
+          }
+        />
+        {/* <LineDivider /> */}
+      </View>
+      // {/* </ScrollView> */}
     );
   }
 
@@ -504,16 +504,21 @@ const ShopProfileScreen = () => {
       )}
 
       {renderHeader()}
+
       {renderDetailField()}
 
+      {/* <View> */}
       <CustomButton
         label={"Cập nhật"}
         styleContainer={{
           width: "90%",
           alignSelf: "center",
+          marginTop: 10,
+          // height: 40,
         }}
         onPress={() => updateProfile()}
       ></CustomButton>
+      {/* </View> */}
 
       {sNameModal && (
         <ModalInputText
@@ -564,9 +569,10 @@ export default ShopProfileScreen;
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: Colors.mainTheme,
-    flex: 1,
+    // flex: 1,
+    height: SIZES.height,
 
-    borderWidth: 1,
+    // borderWidth: 1,
   },
   headerContainer: {
     flexDirection: "row",

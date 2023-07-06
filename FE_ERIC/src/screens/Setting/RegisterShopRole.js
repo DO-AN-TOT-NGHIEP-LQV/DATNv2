@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+// shop_1_385d754d-84eb-49d5-8b19-edf8cadcddd7.jpeg
+import React, { Fragment, useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -9,6 +10,8 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  ImageBackground,
   // TextInput,
 } from "react-native";
 import Icon from "@expo/vector-icons/AntDesign";
@@ -18,307 +21,439 @@ import { Color } from "../../constans";
 import Icons, { icons } from "../../components/Icons";
 import ProductValue from "../../components/SalerManager/ProductValue";
 import LineDivider from "../../components/LineDivider";
-import { SIZES } from "../../constans/Theme";
-import { Input, Avatar } from "react-native-elements";
+import { FONTS, SIZES } from "../../constans/Theme";
+import { Input, Avatar, Button } from "react-native-elements";
 import { TextInput } from "react-native-paper";
+import { LogoApp, shopImageMan } from "../../public/assets/image";
+import { logoHome } from "../../public/assets/icons";
+import CustomButton from "../../components/CustomButton/index.js";
+import * as Animatable from "react-native-animatable";
+import { useSelector } from "react-redux";
+import {
+  CANCEL_REGISTER_SHOP,
+  REGISTER_SHOP,
+  STATUS_REGISTER_SHOP,
+} from "../../config/urls";
+import { apiDelete, apiGet, apiPost } from "../../ultils/utilsApi";
+import { showError, showSuccess } from "../../ultils/messageFunction";
 
 export default function RegisterShopRole() {
   const navigation = useNavigation();
+  const detailUser = useSelector((state) => state.auth.detailUser);
+  const [shopDetail, setShopDetail] = useState(null);
 
-  useEffect(() => {
-    navigation.getParent()?.setOptions({
-      tabBarStyle: { display: "none" },
-      tabBarVisible: false,
-    });
+  // useEffect(() => {
+  //   navigation.getParent()?.setOptions({
+  //     tabBarStyle: { display: "none" },
+  //     tabBarVisible: false,
+  //   });
 
-    return () => {
-      navigation
-        .getParent()
-        ?.setOptions({ tabBarStyle: undefined, tabBarVisible: undefined });
-    };
-  }, [navigation]);
+  //   return () => {
+  //     navigation
+  //       .getParent()
+  //       ?.setOptions({ tabBarStyle: undefined, tabBarVisible: undefined });
+  //   };
+  // }, [navigation]);
 
   const [shopDetailForm, setShopDetailForm] = useState({
-    sAddress1: "",
-    sLink: "",
     sName: "",
     sNumber: "",
+    sAddress1: "",
+    sLink: "",
   });
 
-  const { sAddress1, sLink, sName, sNumber, shopId } = shopDetailForm;
-  //   const [pickedImagePath, setPickedImagePath] = useState(null);
+  const { sAddress1, sLink, sName, sNumber } = shopDetailForm;
 
   const updateShopForm = (data) =>
     setShopDetailForm(() => ({ ...shopDetailForm, ...data }));
 
-  //   ///////////////////////////////////////////////
-  const [isShowModal, setShowModal] = useState({
-    sNameModal: false,
-    sAddress1Modal: false,
-    sNumberModal: false,
-    sLinkModal: false,
-  });
+  useEffect(() => {
+    firstLoad();
+  }, []);
 
-  const { sNameModal, sAddress1Modal, sNumberModal, sLinkModal } = isShowModal;
+  const firstLoad = async () => {
+    try {
+      var headers = {
+        "Content-Type": "application/json",
+      };
 
-  const updateIsShowModal = (data) =>
-    setShowModal(() => ({ ...isShowModal, ...data }));
+      if (detailUser) {
+        let url = `${STATUS_REGISTER_SHOP}?`;
 
-  function renderDetailField() {
-    return (
-      <ScrollView>
-        <View style={styles.profileSessionContainer}>
-          <ProductValue
-            label={"Chủ sở hữu"}
-            // value={detailUser?.username}
-            icon={
-              <View style={styles.iconStyle}>
-                <Icons
-                  size={20}
-                  name={"user"}
-                  icon={icons.AntDesign}
-                  color={Color.mainColor}
-                />
-              </View>
-            }
-          />
-          <LineDivider />
-          <ProductValue
-            label={"Email"}
-            // value={detailUser?.email}
-            icon={
-              <View style={styles.iconStyle}>
-                <Icons
-                  size={16}
-                  name={"mail"}
-                  icon={icons.AntDesign}
-                  color={Color.mainColor}
-                />
-              </View>
-            }
-          />
-          <LineDivider />
-          <ProductValue
-            label={"Tên cửa hàng"}
-            value={sName}
-            onPress={() => {
-              //   updateIsShowModal({ sNameModal: true });
-            }}
-            icon={
-              <View style={styles.iconStyle}>
-                <Icons
-                  size={16}
-                  name={"storefront-outline"}
-                  icon={icons.MaterialCommunityIcons}
-                  color={Color.mainColor}
-                />
-              </View>
-            }
-          />
-          <LineDivider />
+        url += `userId=${detailUser?.id}`;
 
-          <ProductValue
-            label={"Liên kết"}
-            value={sLink}
-            icon={
-              <View style={styles.iconStyle}>
-                <Icons
-                  size={20}
-                  name={"link-outline"}
-                  icon={icons.Ionicons}
-                  color={Color.mainColor}
-                />
-              </View>
-            }
-            onPress={() => {
-              //   updateIsShowModal({ sLinkModal: true });
-            }}
-          />
-          <LineDivider />
+        const res = await apiGet(url, {}, headers, false);
+        setShopDetail(res.data);
+        setShopDetailForm({
+          sName: res.data?.sName,
+          sLink: res.data?.sLink,
+          sAddress1: res.data?.sAddress1,
+          sNumber: res.data?.sNumber,
+        });
 
-          <ProductValue
-            label={"Số điện thoại"}
-            value={sNumber}
-            onPress={() => {
-              updateIsShowModal({ sNumberModal: true });
-            }}
-            icon={
-              <View style={styles.iconStyle}>
-                <Icons
-                  size={18}
-                  name={"phone-call"}
-                  icon={icons.Feather}
-                  color={Color.mainColor}
-                />
-              </View>
-            }
-          />
-          <LineDivider />
+        console.log(res.data);
+        console.log(url);
+      }
+    } catch (error) {
+      showError(error.error_message || "Lấy dữ liệu thất bại");
+    }
+  };
 
-          <ProductValue
-            label={"Địa chỉ"}
-            value={sAddress1}
-            onPress={() => {}}
-            icon={
-              <View style={styles.iconStyle}>
-                <Icons
-                  size={18}
-                  name={"ios-location-outline"}
-                  icon={icons.Ionicons}
-                  color={Color.mainColor}
-                />
-              </View>
-            }
-          />
-          {/* <LineDivider /> */}
-        </View>
-      </ScrollView>
-    );
-  }
+  const registerNewShop = async () => {
+    try {
+      const res = await apiPost(REGISTER_SHOP, shopDetailForm, {}, true);
+      setShopDetail(res.data);
+      showSuccess("Đăng ký thành công");
+      firstLoad();
+
+      // navigation.goBack();
+    } catch (error) {
+      showError(error.error_message || "Đăng ký thất bại");
+    }
+  };
+
+  const cancelRegisterShop = async () => {
+    try {
+      var headers = {
+        "Content-Type": "application/json",
+      };
+
+      if (shopDetail && shopDetail?.sStatus == false) {
+        let url = `${CANCEL_REGISTER_SHOP}?`;
+
+        url += `shopId=${shopDetail?.id}`;
+
+        const res = await apiDelete(url, {}, headers, false);
+        showSuccess("Hủy đăng ký thành công");
+        firstLoad();
+      } else {
+        showError("Không tìm thấy id cửa hàng");
+      }
+    } catch (error) {
+      showError(error.error_message || "Lấy dữ liệu thất bại");
+    }
+  };
+
   function renderInputDetail() {
     return (
-      <ScrollView style={{}}>
-        <TextInput
-          label="Tên cửa hàng"
-          style={{ backgroundColor: Color.white }}
-          mode="flat"
-          // outlineColor={Color.transparent}
-          // activeOutlineColor={Color.hostessGreen}
-          // theme={{ roundness: 16 }}
-          left={
-            <TextInput.Icon
-              icon={"storefront-outline"}
-              iconColor={Color.mainColor}
-              size={20}
-            />
-          }
-        />
+      <ScrollView style={{ flex: 1, opacity: !shopDetail ? 1 : 0.2 }}>
+        <Animatable.View
+          animation={"fadeInUp"}
+          duration={500}
+          delay={500}
+          pointerEvents={!shopDetail ? "auto" : "none"}
+        >
+          <TextInput
+            label="Tên cửa hàng"
+            style={{ backgroundColor: Color.white }}
+            mode="flat"
+            value={sName}
+            onChangeText={(name) => updateShopForm({ sName: name })}
+            left={
+              <TextInput.Icon
+                icon={"storefront-outline"}
+                iconColor={Color.mainColor}
+                size={20}
+              />
+            }
+          />
 
-        <TextInput
-          label="Link cửa hàng"
-          style={{ backgroundColor: Color.white }}
-          mode="flat"
-          activeOutlineColor={Color.mainColor}
-          left={
-            <TextInput.Icon
-              icon={"link"}
-              iconColor={Color.mainColor}
-              size={20}
-            />
-          }
-        />
+          <TextInput
+            label="Link cửa hàng"
+            style={{ backgroundColor: Color.white }}
+            mode="flat"
+            value={sLink}
+            onChangeText={(sLink) => updateShopForm({ sLink: sLink })}
+            activeOutlineColor={Color.mainColor}
+            left={
+              <TextInput.Icon
+                icon={"link"}
+                iconColor={Color.mainColor}
+                size={20}
+              />
+            }
+          />
 
-        <TextInput
-          label="Số điện thoại"
-          style={{ backgroundColor: Color.white }}
-          mode="flat"
-          activeOutlineColor={Color.mainColor}
-          left={
-            <TextInput.Icon
-              icon={"phone-outline"}
-              iconColor={Color.mainColor}
-              size={20}
-            />
-          }
-        />
+          <TextInput
+            label="Số điện thoại"
+            style={{ backgroundColor: Color.white }}
+            mode="flat"
+            keyboardType="phone-pad"
+            activeOutlineColor={Color.mainColor}
+            value={sNumber}
+            onChangeText={(sNumber) => updateShopForm({ sNumber: sNumber })}
+            left={
+              <TextInput.Icon
+                icon={"phone-outline"}
+                iconColor={Color.mainColor}
+                size={20}
+              />
+            }
+          />
 
-        <TextInput
-          label="Địa chỉ"
-          style={{ backgroundColor: Color.white, zIndex: -10, height: 70 }}
-          mode="flat"
-          activeOutlineColor={Color.mainColor}
-          left={
-            <TextInput.Icon
-              icon={"map-marker-outline"}
-              iconColor={Color.mainColor}
-              size={20}
-            />
-          }
-        />
+          <TextInput
+            label="Địa chỉ"
+            style={{ backgroundColor: Color.white, zIndex: -10, height: 70 }}
+            mode="flat"
+            activeOutlineColor={Color.mainColor}
+            value={sAddress1}
+            onChangeText={(sAddress1) =>
+              updateShopForm({ sAddress1: sAddress1 })
+            }
+            left={
+              <TextInput.Icon
+                icon={"map-marker-outline"}
+                iconColor={Color.mainColor}
+                size={20}
+              />
+            }
+          />
+        </Animatable.View>
+
+        <Animatable.View
+          animation={"fadeInUp"}
+          // animation={"zoomInRight"}
+          duration={500}
+          delay={500}
+        >
+          <View style={{ paddingLeft: 20, paddingTop: 20 }}>
+            <Text>* Đăng ký thông tin của cửa hàng của bạn</Text>
+            <Text>* Vui lòng nhập đúng thông tin</Text>
+            <Text>
+              * Chung tôi sẽ liên lạc với bạn thông qua mail và số điện thoại
+              bạn đã cung cấp
+            </Text>
+          </View>
+        </Animatable.View>
       </ScrollView>
     );
   }
+
   return (
-    <SafeAreaView
-      style={{
-        backgroundColor: "#fcfcfb", // Color.mainTheme,
-        // flex: 1,
-      }}
-    >
-      <View>
+    <Fragment>
+      <SafeAreaView
+        style={{
+          backgroundColor: "#fcfcfb",
+          flex: 1,
+        }}
+      >
         {/* Contianer 1 */}
-        <View style={{ backgroundColor: "#ffffff" }}>
-          <View
-            style={{
-              backgroundColor: "#4f5898",
-              // backgroundColor: Color.blackOpacity,
-              // backgroundColor: Color.mainColor,
-              // backgroundColor: Color.bbl,
-              padding: 50,
-              borderBottomLeftRadius: 60,
-            }}
-          >
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Image
-                style={{ width: 100, height: 100, resizeMode: "contain" }}
-                // source={require("../assets/logo_1.png")}
-              />
-            </View>
+        <Animatable.View animation={"zoomInRight"} duration={500} delay={500}>
+          <View style={{ backgroundColor: Color.white, height: 200 }}>
+            <ImageBackground
+              style={{
+                backgroundColor: Color.mainTheme,
+                flex: 1,
+                borderBottomLeftRadius: 60,
+                flexDirection: "row",
+              }}
+              source={shopImageMan}
+              imageStyle={{
+                width: 250,
+                height: 195,
+                marginLeft: 160,
+                borderColor: Color.black,
+                opacity: 1,
+              }}
+            >
+              <View
+                style={{
+                  borderRadius: 8,
+                  color: Color.mainColor,
 
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Text style={{ fontWeight: "500", fontSize: 20, color: "#fff" }}>
-                Lahore Graphics Academy
-              </Text>
-              <Text style={{ fontWeight: "300", fontSize: 15, color: "#fff" }}>
-                Student Portal
-              </Text>
-            </View>
+                  justifyContent: "center",
+                  width: "70%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#3c6072",
+                    fontSize: 20,
+                    marginLeft: 10,
+                    // marginTop: 30,
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  Tham gia cùng chúng tôi
+                </Text>
+                {/* First Section DONE */}
+                <View
+                  style={{
+                    flexDirection: "row",
+                    // alignItems: "center",
+                  }}
+                >
+                  <Image
+                    source={logoHome}
+                    style={{
+                      width: 90,
+                      height: 90,
+                      borderRadius: 50,
+                    }}
+                    resizeMode="cover"
+                  />
+                  {/* </View> */}
+                  <View style={{}}>
+                    <Text
+                      style={{
+                        ...FONTS.h2,
+                        lineHeight: 25,
+                        color: "#00BCC9",
+                        marginTop: 10,
+                      }}
+                    >
+                      Shoes ERIC
+                    </Text>
+                    <Text
+                      className="text-[#3C6072]"
+                      style={{
+                        marginLeft: -5,
+                        color: Color.blackOpacity,
+                        fontFamily: "Roboto-Regular",
+                        paddingRight: 20,
+                        fontSize: 13,
+                      }}
+                    >
+                      Đăng ký cửa hàng của{"\n"} bạn vào hệ thống
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </ImageBackground>
           </View>
-        </View>
+        </Animatable.View>
 
-        {/* Container 2 */}
-        <SafeAreaView style={{ backgroundColor: "#4f5898" }}>
+        {/* Container 2  // "#4f5898" */}
+        <KeyboardAvoidingView
+          style={{
+            flex: 1,
+            backgroundColor: Color.mainTheme,
+          }}
+        >
           <View
             style={{
               justifyContent: "center",
-              backgroundColor: "#fff",
+              backgroundColor: Color.white,
               paddingHorizontal: 30,
               borderTopRightRadius: 60,
               width: "100%",
               flex: 1,
-              zIndex: 10,
             }}
           >
-            {/* <View style={styles.spacing_big}></View> */}
+            <>
+              <Animatable.View
+                animation={"zoomInLeft"}
+                duration={500}
+                delay={500}
+              >
+                {shopDetail && !shopDetail?.sStatus && (
+                  <View
+                    style={{
+                      marginVertical: 5,
+                      flexDirection: "row",
+                      height: 55,
+                      width: "100%",
+                    }}
+                  >
+                    <View
+                      style={{
+                        borderStyle: "dashed",
+                        borderColor: Color.yellow,
+                        width: "60%",
+                        marginVertical: 3,
+                        borderWidth: 1,
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Text style={{ color: Color.yellow }}>
+                        Đang chờ duyệt
+                      </Text>
+                    </View>
 
-            {renderInputDetail()}
-            {/* {renderDetailField()} */}
+                    <View
+                      style={{
+                        width: "40%",
+                        alignItems: "flex-end",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <CustomButton
+                        label="Hủy"
+                        onPress={() => cancelRegisterShop()}
+                        textStyle={{ lineHeight: 16 }}
+                        styleContainer={{
+                          width: 100,
+                          height: 35,
+                          marginLeft: 15,
+                        }}
+                      />
+                    </View>
+                  </View>
+                )}
+
+                {shopDetail && shopDetail?.sStatus && (
+                  <View
+                    style={{
+                      marginVertical: 5,
+                      flexDirection: "row",
+                      height: 55,
+                      width: "100%",
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={{
+                        borderStyle: "dashed",
+                        borderColor: Color.success,
+                        width: "100%",
+                        marginVertical: 3,
+                        borderWidth: 1,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        borderTopRightRadius: 20,
+                      }}
+                      onPress={() => navigation.navigate("ShopTab")}
+                    >
+                      <Text style={{ color: Color.success }}>
+                        Đến cửa hàng của bạn
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+
+                {!shopDetail && (
+                  <View
+                    style={{
+                      width: "100%",
+                      // borderWidth: 1,
+                      alignItems: "flex-end",
+                      justifyContent: "center",
+                      height: 55,
+                    }}
+                  >
+                    <CustomButton
+                      label="Hoàn tất"
+                      onPress={() => registerNewShop()}
+                      textStyle={{ lineHeight: 16 }}
+                      styleContainer={{
+                        width: 100,
+                        // height: 35,
+                        marginLeft: 15,
+                      }}
+                    />
+                  </View>
+                )}
+              </Animatable.View>
+              {renderInputDetail()}
+            </>
+
+            <View style={styles.circleYellow}></View>
           </View>
-        </SafeAreaView>
-      </View>
+        </KeyboardAvoidingView>
 
-      {/* <View
-        style={{
-          flex: 1,
-          justifyContent: "flex-end",
-          backgroundColor: Color.transparent,
-          alignItems: "flex-end",
-        }}
-      >
-        <Image
-          source={require("../public/assets/gif/man-doing-shoes-shopping.gif")}
-          style={{
-            width: 200,
-            height: 200,
-          }}
-          resizeMode="contain"
-        />
-      </View> */}
-
-      {/* Circel Section */}
-      {/* <View style={styles.circleBlue}></View> */}
-      {/* <View style={styles.circleYellow}></View> */}
-    </SafeAreaView>
+        {/* <View style={styles.circleBlue}></View> */}
+      </SafeAreaView>
+    </Fragment>
   );
 }
 
@@ -335,9 +470,6 @@ const styles = StyleSheet.create({
   iconStyle: {
     width: 20,
     height: 20,
-    // paddingLeft: -10,
-    // marginLeft: -20,
-    // marginRight: 5,
     alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
@@ -364,7 +496,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#00BCC9",
     borderRadius: 999,
     position: "absolute",
-    bottom: 0,
+    top: 400,
+    // bottom: 0,
     left: "-25%",
     zIndex: 10,
   },
@@ -405,8 +538,5 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     elevation: 5,
     marginTop: 100,
-
-    // alignItems:'center',
-    // justifyContent:'center'
   },
 });
