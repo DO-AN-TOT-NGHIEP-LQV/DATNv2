@@ -398,3 +398,56 @@ export function validatorAddShopProduct(data) {
     }
   } else return resValid;
 }
+
+// export function validatorUpdateProfile(data) {
+//   const { username, number } = data;
+
+//   const isValidPhone = (phone) => {
+//     const phoneRegex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/; // Biểu thức chính quy kiểm tra số điện thoại có 10 chữ số
+
+//     return phoneRegex.test(phone);
+//   };
+
+//   let resValid = "Hãy nhập tên người dùng";
+//   if (username !== undefined) {
+//     let emptyValidationText = checkEmpty(username, resValid);
+//     if (emptyValidationText !== "") {
+//       return emptyValidationText;
+//     }
+//   } else return resValid;
+
+//   if (number !== undefined) {
+//     let emptyValidationText = checkEmpty(
+//       number,
+//       "Vui lòng nhập số điệnt thoại"
+//     );
+//     if (emptyValidationText !== "") {
+//       return emptyValidationText;
+//     } else {
+//       if (!isValidPhone(number)) {
+//         return "Số điện thoại không đúng";
+//       }
+//     }
+//   }
+// }
+
+export function validatorUpdateProfile(data) {
+  const { username, number } = data;
+
+  const isValidPhone = (phone) => {
+    const phoneRegex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/; // Biểu thức chính quy kiểm tra số điện thoại
+
+    return phoneRegex.test(phone);
+  };
+
+  if (!username) {
+    return "Hãy nhập tên người dùng";
+  }
+
+  if (!number) {
+    return "Vui lòng nhập số điện thoại";
+  } else if (!isValidPhone(number)) {
+    return "Số điện thoại không đúng định dạng";
+  }
+  return null;
+}

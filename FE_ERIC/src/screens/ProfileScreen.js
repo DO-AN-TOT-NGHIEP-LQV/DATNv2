@@ -40,9 +40,9 @@ const ProfileScreen = () => {
   const navigation = useNavigation();
   const [isVisibleModalPassword, setVisibleModelPassword] = useState(false);
 
-  useEffect(() => {
-    console.log(detailUser);
-  }, []);
+  // useEffect(() => {
+  //   console.log(detailUser);
+  // }, []);
   const onLogoutAlert = () => {
     Alert.alert(
       "Đăng xuất",
@@ -108,8 +108,8 @@ const ProfileScreen = () => {
           >
             <Image
               source={
-                isLogin && detailUser?.avatar
-                  ? { uri: detailUser?.avatar }
+                isLogin && detailUser?.image?.url
+                  ? { uri: detailUser?.image?.url }
                   : LoginImg
               }
               style={{
@@ -242,7 +242,9 @@ const ProfileScreen = () => {
         <ProfileEdit
           iconName={"edit"}
           label={"Thay đổi thông tin cá nhân"}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate("SettingTab", { screen: "ChangeProfileUser" });
+          }}
         />
         <LineDivider />
 

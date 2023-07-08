@@ -32,11 +32,13 @@ export const spacing = {
   m: 18,
   l: 24,
   xl: 40,
-  statusbarHeight: StatusBar.currentHeight,
+  // statusbarHeight: StatusBar.currentHeight,
+  statusbarHeight: 0,
 };
 
 export const statusbarHeight = {
-  marginTop: StatusBar.currentHeight,
+  // marginTop: StatusBar.currentHeight,
+  marginTop: 0,
 };
 
 export const FONTS = {

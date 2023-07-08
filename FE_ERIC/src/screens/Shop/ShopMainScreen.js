@@ -25,6 +25,8 @@ import openWebLink from "../../hookFuntion/openWebLink";
 import { useNavigation } from "@react-navigation/native";
 import { ManagerGif } from "../../public/assets/gif";
 import * as Animatable from "react-native-animatable";
+import { Icon } from "react-native-elements/dist/icons/Icon";
+import Icons, { icons } from "../../components/Icons";
 
 const ShopMainScreen = () => {
   const detailUser = useSelector((state) => state.auth.detailUser);
@@ -135,7 +137,12 @@ const ShopMainScreen = () => {
                 style={styles.styleContainerButtonRole}
                 onPress={() => openWebLink()}
               >
-                <Text style={{ ...styles.styleTextButtonRole }}>Link</Text>
+                {/* <Text style={{ ...styles.styleTextButtonRole }}>Link</Text> */}
+                <Icons
+                  icon={icons.Feather}
+                  name={"refresh-ccw"}
+                  color={Colors.mainColor}
+                ></Icons>
               </TouchableOpacity>
             </TouchableOpacity>
 

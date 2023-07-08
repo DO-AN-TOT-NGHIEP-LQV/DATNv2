@@ -18,7 +18,7 @@ import {
   CHANGE_FEATURE,
   DELETE_PRODUCT,
   GET_PRODUCT_BY_ID,
-  GET_PRODUCT_DETAIL,
+  // GET_PRODUCT_DETAIL,
   UPDATE_PRODUCT,
 } from "../../config/urls";
 import Header from "../../components/Header";

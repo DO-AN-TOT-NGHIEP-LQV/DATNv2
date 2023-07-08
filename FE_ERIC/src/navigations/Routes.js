@@ -24,6 +24,8 @@ import {
   AdminEditUsers,
   OnboardingScreen,
   AdminManagerShopScreen,
+  AdminAcceptShopScreen,
+  ChangeProfileUser,
 } from "../screens";
 import { statusbarHeight } from "../constans/Theme";
 import CustomTabBarIcon from "../components/CustomTabBarIcon";
@@ -368,6 +370,17 @@ const SettingStackNavigator = () => {
           keyboardHidesTabBar: true,
         }}
       />
+
+      <Stack.Screen
+        name="ChangeProfileUser"
+        component={ChangeProfileUser}
+        tabBarOptions={{
+          style: {
+            display: "none",
+          },
+          keyboardHidesTabBar: true,
+        }}
+      />
       {/* <SettingNavigator.Screen
         name="Auth"
         component={AuthStackNavigator}
@@ -480,6 +493,17 @@ const AdminManagerStackNavigator = () => {
       <Stack.Screen
         name="AdminManagerShopScreen"
         component={AdminManagerShopScreen}
+        tabBarOptions={{
+          style: {
+            display: "none",
+          },
+          keyboardHidesTabBar: true,
+        }}
+      />
+
+      <Stack.Screen
+        name="AdminAcceptShopScreen"
+        component={AdminAcceptShopScreen}
         tabBarOptions={{
           style: {
             display: "none",

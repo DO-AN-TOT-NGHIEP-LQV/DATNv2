@@ -269,7 +269,7 @@ const SearchTextScreen = () => {
       <View
         style={{
           backgroundColor: Color.mainTheme,
-          ...statusbarHeight,
+          // ...statusbarHeight,
         }}
       >
         <View style={[style.headerWrapperHeader, style.shadowTouch]}>

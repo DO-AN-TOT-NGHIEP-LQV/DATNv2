@@ -13,6 +13,8 @@ export const REFRESH_TOKEN = getApiUrl("/token/refresh");
 export const REGISTER_SHOP = getApiUrl("/user/registerShop");
 export const STATUS_REGISTER_SHOP = getApiUrl("/user/getStatusRegisterShop");
 export const CANCEL_REGISTER_SHOP = getApiUrl("/user/cancelRegisterShop");
+export const USER_UPDATE_PROFILE = getApiUrl("/user/updateProfile");
+export const USER_UPDATE_IMAGE = getApiUrl("/user/updateImage");
 
 //Search
 export const SEARCH_ALL_B_IMG = getApiUrl("/search/searchByImage");
@@ -50,15 +52,15 @@ export const DELETE_SUB_DISCUSSION = getApiUrl(
   "/user/discussion/product/deleteSubDiscussion"
 );
 
-//Product
-
-export const CREATE_NEW_PRODUCT = getApiUrl("/sale/product/create");
-export const UPDATE_PRODUCT = getApiUrl("/sale/product/update");
-export const DELETE_PRODUCT = getApiUrl("/sale/product/delete");
-export const GET_PRODUCT_DETAIL = getApiUrl("/sale/product/getById");
-export const CHANGE_FEATURE = getApiUrl("/sale/product/feature");
-
-//Product Admin
+//Admin
+export const CREATE_NEW_PRODUCT = getApiUrl("/admin/product/create");
+export const UPDATE_PRODUCT = getApiUrl("/admin/product/update");
+export const DELETE_PRODUCT = getApiUrl("/admin/product/delete");
+// export const GET_PRODUCT_DETAIL = getApiUrl("/sale/product/getById");
+export const CHANGE_FEATURE = getApiUrl("/admin/product/feature");
+export const ADMIN_GET_ShOPS = getApiUrl("/admin/search/getShops");
+export const ADMIN_GET_USER = getApiUrl("/admin/get/user/id");
+export const ADMIN_ACCEPT_SHOP = getApiUrl("/admin/accept/shop");
 
 //Sale // Shop
 export const GET_DETAIL_SHOP = getApiUrl("/sale/shop/getShop");
@@ -76,5 +78,7 @@ export const UPDATE_SHOP_IMAGE = getApiUrl("/sale/shop/updateImage");
 export const GET_VENDOR_PRODUCT = getApiUrl("/sale/shop/getVendorProduct");
 
 // axios.defaults.baseURL = "http://172.21.0.79:8080/api";
-axios.defaults.baseURL = "http://192.168.1.5:8080/api";
-// axios.defaults.baseURL = "http://103.197.185.34/api";
+// axios.defaults.baseURL = "http://172.21.0.106:8080/api";
+// axios.defaults.baseURL = "http://192.168.69.32:8080/api";
+// axios.defaults.baseURL = "http://192.168.1.5:8080/api";
+axios.defaults.baseURL = "http://103.197.185.34/api";

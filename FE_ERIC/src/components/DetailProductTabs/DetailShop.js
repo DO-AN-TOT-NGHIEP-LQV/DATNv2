@@ -140,7 +140,7 @@ const HorizontalShopCard = ({ containerStyle, imageStyle, item, onPress }) => {
       }}
     >
       {/* IMAGE */}
-      <Image source={{ uri: item?.shop?.sLogo }} style={imageStyle} />
+      <Image source={{ uri: item?.shop?.image?.url }} style={imageStyle} />
 
       {/* info */}
       <View
@@ -168,8 +168,7 @@ const HorizontalShopCard = ({ containerStyle, imageStyle, item, onPress }) => {
           numberOfLines={2}
           style={{ fontSize: 10, fontWeight: "normal", color: Color.gray }}
         >
-          Đ/chỉ: {item?.shop?.sAddress1} Thôn 2 thái sơn điện tiến ddien ban
-          quang nam
+          Đ/chỉ: {item?.shop?.sAddress1}
         </Text>
       </View>
 

@@ -146,20 +146,20 @@ export default function App() {
         }
       }
 
-      AsyncStorage.getAllKeys()
-        .then((keys) => {
-          // Lấy giá trị tương ứng với mỗi key
-          return AsyncStorage.multiGet(keys);
-        })
-        .then((result) => {
-          // result là một mảng chứa các cặp [key, value]
-          result.forEach(([key, value]) => {
-            console.log(`Key: ${key}, Value: ${value}`);
-          });
-        })
-        .catch((error) => {
-          console.error("Lỗi khi lấy các giá trị từ AsyncStorage:", error);
-        });
+      // AsyncStorage.getAllKeys()
+      //   .then((keys) => {
+      //     // Lấy giá trị tương ứng với mỗi key
+      //     return AsyncStorage.multiGet(keys);
+      //   })
+      //   .then((result) => {
+      //     // result là một mảng chứa các cặp [key, value]
+      //     result.forEach(([key, value]) => {
+      //       console.log(`Key: ${key}, Value: ${value}`);
+      //     });
+      //   })
+      //   .catch((error) => {
+      //     console.error("Lỗi khi lấy các giá trị từ AsyncStorage:", error);
+      //   });
     };
 
     firstLoad();
@@ -188,6 +188,11 @@ export default function App() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
         <MenuProvider>
+          <StatusBar
+            barStyle="dark-content"
+            backgroundColor={Color.mainTheme}
+          />
+
           <Routes />
         </MenuProvider>
       </Provider>
@@ -198,7 +203,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },

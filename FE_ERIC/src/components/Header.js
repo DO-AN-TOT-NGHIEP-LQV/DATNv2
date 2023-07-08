@@ -67,14 +67,14 @@ const Header = ({
         paddingHorizontal: 5,
         ...containerStyle,
       }}
-      imageStyle={{ opacity: 0.5 }}
+      imageStyle={{ opacity: 1 }}
     >
       {/* <View style={[styles.headerWrapper, styles.shadowTouch]}> */}
       <View
         style={{
           ...styles.headerWrapper,
           ...styles.shadowTouch,
-          ...statusbarHeight,
+          // ...statusbarHeight,
         }}
       >
         {/*  Left*/}
