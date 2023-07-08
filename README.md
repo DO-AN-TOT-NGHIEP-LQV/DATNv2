@@ -5,8 +5,8 @@
 
 ---- BE ----
 - Cài đặt môi trường java và grandle
-  sudo apt-get install openjdk-11-jdk
-  sudo apt install gradle
+    sudo apt-get install openjdk-11-jdk
+    sudo apt install gradle
 
 - Build và run code
     ./gradlew build (build)
@@ -22,6 +22,9 @@
     gunicorn --bind 0.0.0.0:8000 wsgi:app
     hoặc flask run
 
-  
 ---- FE --------
+- Cài đặt và run react native với expo
+    npm install -g expo-clis
+    expo install
+    expo run
 
