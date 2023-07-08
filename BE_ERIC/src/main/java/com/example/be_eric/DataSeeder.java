@@ -219,13 +219,18 @@ public class DataSeeder implements CommandLineRunner {
         imageService.saveImage(new Image( 53L, "53.jpg", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ImageProduct%2F53.jpg?alt=media"));
 
 
-        imageService.saveImage(new Image( 54L, "shop1.png", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop1.png?alt=media", false));
+        imageService.saveImage(new Image( 54L, "shop_1_b0774d0b-b894-4076-aac5-ab21eb007b78.jpeg", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop_1_b0774d0b-b894-4076-aac5-ab21eb007b78.jpeg?alt=media", false));
         imageService.saveImage(new Image( 55L, "shop2.png", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop2.png?alt=media", false));
         imageService.saveImage(new Image( 56L, "shop3.png", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop3.png?alt=media", false));
 
-        shopService.save(new Shop("Shop2", "0905202332","Quang Nam", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop1.png?alt=media", imageService.getImage(54L)  , userService.getUserByEmail("2@gmail.com")));
-        shopService.save(new Shop("Shop5", "0905202332","Quang Binh", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop2.png?alt=media",  imageService.getImage(55L)  , userService.getUserByEmail("4@gmail.com")));
-        shopService.save(new Shop("Shop3", "7709446333","Quang Binh", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop3.png?alt=media",  imageService.getImage(56L)  , userService.getUserByEmail("5@gmail.com")));
+        shopService.save(new Shop("Shop2", "0905202332","Quang Nam", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop1.png?alt=media", imageService.getImage(54L)  , userService.getUserByEmail("2@gmail.com"), true));
+        shopService.save(new Shop("Shop5", "0905202332","Quang Binh", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop2.png?alt=media",  imageService.getImage(55L)  , userService.getUserByEmail("4@gmail.com"), true));
+        shopService.save(new Shop("Shop3", "7709446333","Quang Binh", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop3.png?alt=media",  imageService.getImage(56L)  , userService.getUserByEmail("5@gmail.com"), true));
+
+
+        imageService.saveImage(new Image( 57L, "shop_1_b0774d0b-b894-4076-aac5-ab21eb007b78.jpeg", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop_1_b0774d0b-b894-4076-aac5-ab21eb007b78.jpeg?alt=media", false));
+        imageService.saveImage(new Image( 58L, "shop2.png", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop2.png?alt=media", false));
+        imageService.saveImage(new Image( 59L, "shop3.png", "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/ShopImage%2Fshop3.png?alt=media", false));
 
             //
 //        postService.addImageToPost(postService.getPostById(1L), imageService.getImage(1L)  );

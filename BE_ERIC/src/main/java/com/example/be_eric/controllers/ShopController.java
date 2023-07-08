@@ -138,8 +138,6 @@ public class ShopController {
 
             if( shopProduct != null)
             {
-//                ShopProduct shopProduct = new ShopProduct(shop, product, price, quantity, link );
-//                shopService.saveShopProduct(shopProduct);
                 shopProduct.setPrice( price );
                 shopProduct.setQuantity(quantity);
                 shopProduct.setLink(link);
@@ -156,7 +154,6 @@ public class ShopController {
                     .body(new ErrorResponse(e.getMessage()));
         }
     }
-
 
     @DeleteMapping(value = "/sale/shop/deleteProductVentor")
     public ResponseEntity<?> deleteProductVentor(@RequestParam  Long productId, @RequestParam Long shopId)
@@ -188,7 +185,6 @@ public class ShopController {
         }
     }
 
-
     @GetMapping(value = "/sale/shop/getVendorProduct/{shopId}/{productId}")
     public ResponseEntity searchVendorProduct(
             @PathVariable(required = true) Long shopId,
@@ -206,8 +202,6 @@ public class ShopController {
                     .body(new ErrorResponse(e.getMessage()));
         }
     }
-
-
 
     @PostMapping("/sale/shop/updateProfile/{shopId}")
     public ResponseEntity<?> updateProfile(
@@ -243,7 +237,6 @@ public class ShopController {
     }
 
 
-
     @PostMapping("/sale/shop/updateImage/{shopId}")
     public ResponseEntity<?> updateProfile(
             @PathVariable(required = true) Long shopId,
@@ -262,13 +255,12 @@ public class ShopController {
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse("Cửa hàng không còn tồn tại hoặc không tìm thấy"));
         }
-
         try {
             return ResponseEntity.ok().body(firebaseFileService.changeImageShop(fileImage, shop));
 
         } catch (UploadImageException e ) {
             return ResponseEntity.badRequest()
-                    .body(new ErrorResponse("Lỗi trong qua trình tải ảnh"));
+                    .body(new ErrorResponse(e.getMessage()));
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
@@ -277,5 +269,4 @@ public class ShopController {
         }
 
     }
-
 }

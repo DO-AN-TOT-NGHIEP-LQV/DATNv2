@@ -196,7 +196,6 @@ public class SearchController {
     @GetMapping(value = "/search/products/getDetail")
     public ResponseEntity searchGetProductDetail(@RequestParam("productId") Long productId) {
         try {
-
             Product product =  productService.getById( productId );
             if (product == null){
                 throw  new Exception( "Sản phẩm này không còn tồn tại");

@@ -56,7 +56,11 @@ public class SecutityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers( GET,  "/api/sale/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SALER");
 
         http.authorizeRequests().antMatchers( POST, "/api/user/save/**", "/api/sale/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_SALER");
-//        http.authorizeRequests().antMatchers( GET, "/api/sale/shop/getProduct").hasAnyAuthority("ROLE_ADMIN");
+
+        http.authorizeRequests().antMatchers( POST , "/api/admin/**" ).hasAnyAuthority("ROLE_ADMIN");
+        http.authorizeRequests().antMatchers( GET , "/api/admin/**" ).hasAnyAuthority("ROLE_ADMIN");
+
+        //        http.authorizeRequests().antMatchers( GET, "/api/sale/shop/getProduct").hasAnyAuthority("ROLE_ADMIN");
 //        http.authorizeRequests().antMatchers( "GET", "/api/user/**").hasAnyAuthority("ROLE_SUPER_ADMIN");
 //        http.authorizeRequests().anyRequest().authenticated(); // bat buoc tat cac cac trong deu phai xac thuc
         http.addFilter(customAuthenticationFilter);

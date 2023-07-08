@@ -4,6 +4,7 @@ import com.example.be_eric.models.Comment.ProductMainDiscussion;
 import com.example.be_eric.models.Image;
 import com.example.be_eric.models.Product.Product;
 import com.example.be_eric.models.Shop;
+import com.example.be_eric.models.User;
 import com.example.be_eric.ultils.Exception.UploadImageException;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -43,6 +44,9 @@ public class FirebaseFileService {
 
     @Autowired
     private  ProductService productService;
+
+    @Autowired
+    private  UserService userService;
 
     @Autowired
     private  ImageService imageService;
@@ -141,20 +145,53 @@ public class FirebaseFileService {
 
 
 
+//    @Transactional(rollbackOn = UploadImageException.class)
+//    public Shop changeImageShop(MultipartFile newFile, Shop shop) throws  UploadImageException {
+//
+//        Image oldImage = shop.getImage();
+//        try {
+//            String objectName = "ShopImage/" + oldImage.getName();
+//            System.out.println(oldImage.getName());
+//
+//
+//            BlobId blobId = BlobId.of("datnv1-34493.appspot.com", objectName);
+//            Blob blob = storage.get(blobId);
+//            if (blob == null) {
+//                throw new Exception("Hình ảnh không tồn tại trong kho lưu trữ");
+//            }
+//
+//            String newFileName =   "shop_" + shop.getId() + "_" +  generateFileName(newFile.getOriginalFilename());
+//            String folderName = "ShopImage";
+//            String filePath = folderName + "/" + newFileName;
+//            BlobId newBlobId = BlobId.of("datnv1-34493.appspot.com", filePath);
+//            BlobInfo blobInfo = BlobInfo.newBuilder(newBlobId)
+//                    .setContentType(newFile.getContentType())
+//                    .build();
+//
+//            shop.getImage().setName(newFileName);
+//            String fileUrl = "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/" + URLEncoder.encode(filePath, "UTF-8") + "?alt=media";
+//            shop.getImage().setUrl(fileUrl);
+//
+//            Shop s = shopService.save(shop);
+//
+//            storage.delete(blobId);
+//            storage.create(blobInfo, newFile.getBytes());
+//
+//            return s;
+//        } catch (Exception e) {
+//            System.out.println(e);
+//            throw new UploadImageException(e.getMessage());
+//        }
+//
+//    }
+
+
+
     @Transactional(rollbackOn = UploadImageException.class)
     public Shop changeImageShop(MultipartFile newFile, Shop shop) throws  UploadImageException {
 
         Image oldImage = shop.getImage();
         try {
-            String objectName = "ShopImage/" + oldImage.getName();
-            System.out.println(oldImage.getName());
-
-
-            BlobId blobId = BlobId.of("datnv1-34493.appspot.com", objectName);
-            Blob blob = storage.get(blobId);
-            if (blob == null) {
-                throw new Exception("Hình ảnh không tồn tại trong kho lưu trữ");
-            }
 
             String newFileName =   "shop_" + shop.getId() + "_" +  generateFileName(newFile.getOriginalFilename());
             String folderName = "ShopImage";
@@ -163,17 +200,79 @@ public class FirebaseFileService {
             BlobInfo blobInfo = BlobInfo.newBuilder(newBlobId)
                     .setContentType(newFile.getContentType())
                     .build();
+            storage.create(blobInfo, newFile.getBytes());
 
-            shop.getImage().setName(newFileName);
             String fileUrl = "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/" + URLEncoder.encode(filePath, "UTF-8") + "?alt=media";
-            shop.getImage().setUrl(fileUrl);
+
+            if( oldImage == null) // neu khong co anh cu thi moi tao moi con khong thi cap nhat va xoa anh cu
+            {
+                Image newImage = new Image();
+                newImage.setName(newFileName);
+                newImage.setUrl(fileUrl);
+                shop.setImage(  imageService.saveImage(newImage));
+            }
+            else{
+                String objectName = "ShopImage/" + oldImage.getName();
+                BlobId blobId = BlobId.of("datnv1-34493.appspot.com", objectName);
+                Blob blob = storage.get(blobId);
+//                if (blob == null) {
+//                    throw new Exception("Hình ảnh không tồn tại trong kho lưu trữ");
+//                }
+                storage.delete(blobId);
+                shop.getImage().setUrl(fileUrl);
+                shop.getImage().setName(newFileName);
+            }
 
             Shop s = shopService.save(shop);
 
-            storage.delete(blobId);
+            return s;
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new UploadImageException(e.getMessage());
+        }
+
+    }
+
+
+    @Transactional(rollbackOn = UploadImageException.class)
+    public User changeImageUser(MultipartFile newFile, User user) throws  UploadImageException {
+
+        Image oldImage = user.getImage();
+        try {
+
+            String newFileName =   "user_" + user.getId() + "_" +  generateFileName(newFile.getOriginalFilename());
+            String folderName = "AvatarUser";
+            String filePath = folderName + "/" + newFileName;
+            BlobId newBlobId = BlobId.of("datnv1-34493.appspot.com", filePath);
+            BlobInfo blobInfo = BlobInfo.newBuilder(newBlobId)
+                    .setContentType(newFile.getContentType())
+                    .build();
             storage.create(blobInfo, newFile.getBytes());
 
-            return s;
+            String fileUrl = "https://firebasestorage.googleapis.com/v0/b/datnv1-34493.appspot.com/o/" + URLEncoder.encode(filePath, "UTF-8") + "?alt=media";
+
+            if( oldImage == null) // neu khong co anh cu thi moi tao moi con khong thi cap nhat va xoa anh cu
+            {
+                Image newImage = new Image();
+                newImage.setName(newFileName);
+                newImage.setUrl(fileUrl);
+                user.setImage(  imageService.saveImage(newImage));
+            }
+            else{
+                String objectName = "AvatarUser/" + oldImage.getName();
+                BlobId blobId = BlobId.of("datnv1-34493.appspot.com", objectName);
+                Blob blob = storage.get(blobId);
+//                if (blob == null) {
+//                    throw new Exception("Hình ảnh không tồn tại trong kho lưu trữ");
+//                }
+                storage.delete(blobId);
+                user.getImage().setUrl(fileUrl);
+                user.getImage().setName(newFileName);
+            }
+
+            User u = userService.updateUser(user);
+
+            return u;
         } catch (Exception e) {
             System.out.println(e);
             throw new UploadImageException(e.getMessage());

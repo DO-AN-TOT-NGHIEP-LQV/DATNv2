@@ -27,7 +27,6 @@ public class ShopDTO {
         this.userId = userId;
     }
 
-
     public ShopDTO(  Long shopId, String sLink, String sAddress1, String sName, String sNumber) {
         this.sLink = sLink;
         this.sAddress1 = sAddress1;
@@ -36,11 +35,9 @@ public class ShopDTO {
         this.shopId = shopId;
     }
 
-
-
     public ShopDTO() {
-
     }
+
     public String getsLink() {
         return sLink;
     }

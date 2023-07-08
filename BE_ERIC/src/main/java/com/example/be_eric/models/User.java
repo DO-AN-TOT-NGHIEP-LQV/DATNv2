@@ -67,6 +67,13 @@ public class User {
     @JsonProperty("shop_id")
     private Shop shop;
 
+
+    @OneToOne
+    private Image image;
+
+
+
+
     public User( String username,  String email,  String password) {
         this.username = username;
         this.email = email;
@@ -110,8 +117,6 @@ public class User {
         this.id = id;
     }
 
-    @OneToOne
-    private Image image;
 
     public Image getImage() {
         return image;

@@ -7,7 +7,6 @@ import com.example.be_eric.repository.UserRepository;
 import com.example.be_eric.ultils.Exception.DuplicateValueException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -73,10 +72,17 @@ public class UserServiceImpl implements  UserService, UserDetailsService {
 
     @Override
     public void addRoleToUser(String username, String roleName) {
-        log.info("Add  role {} to user", roleName, username);
+//        log.info("Add  role {} to user", roleName, username);
         User user = userRepo.findByUsername(username);
         Role role = roleRepo.findByName(roleName);
         user.getRoles().add(role);
+    }
+
+    @Override
+    public boolean upUserToSaler(User user) {
+
+        Role roleSaler = roleRepo.findByName( "ROLE_SALER");
+        return  user.getRoles().add(roleSaler);
     }
 
     @Override
@@ -114,5 +120,10 @@ public class UserServiceImpl implements  UserService, UserDetailsService {
     @Override
     public List<User> getUsers() {
         return userRepo.findAll();
+    }
+
+    @Override
+    public User updateUser(User user) {
+        return userRepo.save(user);
     }
 }

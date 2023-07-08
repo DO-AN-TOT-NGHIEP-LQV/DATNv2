@@ -114,7 +114,7 @@ public class ProductController {
     // Xoa nhung id
     // Xoa nhung id hinh anh da train trong firebase
     // Xoa nhung id hinh anh
-    @PostMapping(value = "/api/sale/product/create", name = "POST",
+    @PostMapping(value = "/api/admin/product/create", name = "POST",
             consumes = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<?> createNewProduct(@RequestPart("product") String product , @RequestPart("fileImage") MultipartFile fileImage)
@@ -226,7 +226,7 @@ public class ProductController {
 //    }
 
 
-    @GetMapping(value = "/api/sale/product/getById", name = "GET")
+    @GetMapping(value = "/api/admin/product/getById", name = "GET")
     public ResponseEntity getProductByIdOfaShop(@RequestParam("productId") Long productId, @RequestParam("shopId") Long shopId )
     {
 
@@ -267,7 +267,7 @@ public class ProductController {
 //    }
 
 
-    @PostMapping(value = "/api/sale/product/update", name = "POST",
+    @PostMapping(value = "/api/admin/product/update", name = "POST",
             consumes = {MediaType.APPLICATION_JSON_VALUE,
                     MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<?> updateProduct(@RequestBody ProductDTO updateProduct)
@@ -302,13 +302,13 @@ public class ProductController {
     }
 
 
-    @PatchMapping(value = "/api/sale/product/feature")
+    @PatchMapping(value = "/api/admin/product/feature")
     public ResponseEntity<?> setFeature(@RequestParam(name = "productId", required = true) Long  productId,
                                         @RequestParam(name = "shopId", required = true ) Long shopId,
                                         @RequestParam(name = "isFeature", required = true ) boolean isFeature )
     {
         try {
-           productService.setProductFeatured(productId, shopId,isFeature);
+           productService.setProductFeatured(productId, shopId, isFeature);
             return ResponseEntity.ok().build();
 
         }
